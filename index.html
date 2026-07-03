@@ -48,7 +48,7 @@
             <div class="space-y-4">
                 <div>
                     <label data-i18n="labelUrl" class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">YouTube, Shorts বা TikTok লিংক</label>
-                    <input type="text" id="yt-url" placeholder="YouTube, Shorts অথবা TikTok Link পেস্ট করুন..." class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                    <input type="text" id="yt-url" data-i18n="placeholderUrl" placeholder="YouTube, Shorts অথবা TikTok Link পেস্ট করুন..." class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors">
                 </div>
 
                 <div id="preview-section" class="hidden space-y-2 mt-4 bg-gray-50 dark:bg-gray-700/30 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
@@ -108,10 +108,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
             </button>
 
-            <div class="relative flex-grow w-full h-full overflow-hidden flex items-center justify-center">
+            <div class="relative flex-grow w-full h-full overflow-hidden flex items-center justify-center bg-black">
                 <div id="video-overlay" class="video-overlay"></div>
                 <div id="yt-player" class="w-full h-full pointer-events-none hidden"></div>
-                <div id="tt-player-container" class="w-full h-full hidden z-30 flex items-center justify-center bg-black"></div>
+                <div id="tt-player-container" class="w-full h-full hidden z-30 flex items-center justify-center absolute inset-0"></div>
             </div>
             
             <div id="controls-bar" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/95 via-black/70 to-transparent p-6 z-40 space-y-4 transition-opacity duration-500 opacity-100">
@@ -142,12 +142,12 @@
             <button id="btn-decoder-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-2xl leading-none font-bold cursor-pointer">&times;</button>
             <h3 data-i18n="decodeTitle" class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 text-center">লিংক ডিকোড করুন</h3>
             <label data-i18n="decodeLabel" class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">PlayFocus লিংক পেস্ট করুন</label>
-            <input type="text" id="decoder-input" placeholder="Paste your encoded URL here..." class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 mb-4">
+            <input type="text" id="decoder-input" data-i18n="placeholderDecode" placeholder="আপনার এনকোডেড লিংক এখানে পেস্ট করুন..." class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 mb-4">
             
             <div id="decode-result-box" class="mt-4">
                 <p data-i18n="decodeOriginal" class="text-xs text-emerald-500 font-semibold mb-1">অরিজিনাল ভিডিও লিংক:</p>
                 <div class="flex items-center space-x-2">
-                    <input type="text" id="decoded-link" readonly placeholder="Original link will appear here..." class="w-full p-2 text-sm rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+                    <input type="text" id="decoded-link" readonly data-i18n="placeholderOriginal" placeholder="অরিজিনাল ভিডিও লিংক এখানে দেখাবে..." class="w-full p-2 text-sm rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300">
                     <button id="btn-decode-copy" class="bg-emerald-500 hover:bg-emerald-600 text-white dark:text-gray-900 px-4 py-2 text-sm rounded font-bold transition cursor-pointer whitespace-nowrap">Copy</button>
                 </div>
             </div>
@@ -171,6 +171,7 @@
         const translations = {
             bn: {
                 title: "🎯 PlayFocus", heading: "নতুন লিংক তৈরি করুন", labelUrl: "YouTube, Shorts বা TikTok লিংক",
+                placeholderUrl: "YouTube, Shorts অথবা TikTok Link পেস্ট করুন...",
                 labelStart: "শুরুর সময় (সেকেন্ডে)", labelEnd: "শেষের সময় (সেকেন্ডে)", btnGenerate: "লিংক তৈরি করুন",
                 dedicatedLink: "আপনার ডেডিকেটেড লিংক:", btnCopy: "Copy & Open", wikiTitle: "📖 এটি কিভাবে কাজ করে? (Wiki)",
                 wikiIntro: "অনেক সময় আমরা একটি ভিডিওর নির্দিষ্ট অংশ আমাদের ফ্রেন্ডস, ফেমিলি অথবা সোশ্যাল মিডিয়ার ভিজিটরদের দেখাতে চাই। একই সাথে এটাও চাই না যে তারা ভিডিওর অপ্রয়োজনীয় অংশ দেখে সময় নষ্ট করুক। মূলত এই উদ্দেশ্যেই PlayFocus তৈরি করা হয়েছে।",
@@ -180,10 +181,12 @@
                 toast: "✅ লিংকটি কপি হয়েছে এবং নতুন ট্যাবে ওপেন হচ্ছে!", mute: "Mute", unmute: "Unmute", play: "Play", pause: "Pause",
                 previewTitle: "ভিডিও প্রিভিউ ও টাইম সেট", setStart: "শুরু সেট করুন", setEnd: "শেষ সেট করুন",
                 decodeTitle: "লিংক ডিকোড করুন", decodeLabel: "PlayFocus এনকোডেড লিংক পেস্ট করুন", decodeOriginal: "অরিজিনাল ভিডিও লিংক:",
+                placeholderDecode: "আপনার এনকোডেড লিংক এখানে পেস্ট করুন...", placeholderOriginal: "অরিজিনাল ভিডিও লিংক এখানে দেখাবে...",
                 toastDecode: "✅ অরিজিনাল লিংক কপি হয়েছে!"
             },
             en: {
                 title: "🎯 PlayFocus", heading: "Create New Link", labelUrl: "YouTube, Shorts or TikTok Link",
+                placeholderUrl: "Paste YouTube, Shorts or TikTok Link...",
                 labelStart: "Start Time (Seconds)", labelEnd: "End Time (Seconds)", btnGenerate: "Generate Link",
                 dedicatedLink: "Your Dedicated Link:", btnCopy: "Copy & Open", wikiTitle: "📖 How It Works? (Wiki)",
                 wikiIntro: "Often we want to show a specific part of a video to our friends or visitors. At the same time, we don't want them to waste time watching unnecessary parts. PlayFocus is built for this exact purpose.",
@@ -193,6 +196,7 @@
                 toast: "✅ Link copied and opening in a new tab!", mute: "Mute", unmute: "Unmute", play: "Play", pause: "Pause",
                 previewTitle: "Video Preview & Time Set", setStart: "Set Start", setEnd: "Set End",
                 decodeTitle: "Decode Link", decodeLabel: "Paste PlayFocus Encoded Link", decodeOriginal: "Original Video Link:",
+                placeholderDecode: "Paste your encoded URL here...", placeholderOriginal: "Original link will appear here...",
                 toastDecode: "✅ Original link copied!"
             }
         };
@@ -219,7 +223,13 @@
         function updateLanguageUI() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[currentLang][key]) { el.innerHTML = translations[currentLang][key]; }
+                if (translations[currentLang][key]) { 
+                    if (el.tagName.toLowerCase() === 'input' && el.hasAttribute('placeholder')) {
+                        el.placeholder = translations[currentLang][key];
+                    } else {
+                        el.innerHTML = translations[currentLang][key]; 
+                    }
+                }
             });
             if (player && videoType === 'yt') {
                 const state = player.getPlayerState();
@@ -365,7 +375,8 @@
                     document.getElementById('btn-fullscreen').classList.add('hidden');
                     const ttContainer = document.getElementById('tt-player-container');
                     ttContainer.classList.remove('hidden');
-                    ttContainer.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${videoId}" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                    // Updated TikTok iframe for better scaling and autoplay
+                    ttContainer.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${videoId}?autoplay=1" class="w-full h-full border-0 absolute inset-0" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`;
                 } else {
                     document.getElementById('yt-player').classList.remove('hidden');
                 }
