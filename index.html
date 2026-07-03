@@ -35,7 +35,7 @@
         <h1 data-i18n="title" class="text-2xl font-bold text-emerald-500 tracking-wide text-center flex-grow">🎯 PlayFocus</h1>
         <div class="flex items-center space-x-2 w-32 justify-end">
             <button id="btn-decoder-open" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition text-lg cursor-pointer" title="Decode Link">🔍</button>
-            <button id="btn-lang" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition font-bold text-sm cursor-pointer" title="Switch Language">🌐 EN</button>
+            <button id="btn-lang" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition font-bold text-sm cursor-pointer whitespace-nowrap flex items-center justify-center" title="Switch Language">🌐 EN</button>
             <button id="btn-theme" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition text-lg cursor-pointer" title="Toggle Theme">🌙</button>
         </div>
     </header>
@@ -142,12 +142,12 @@
             <button id="btn-decoder-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-2xl leading-none font-bold cursor-pointer">&times;</button>
             <h3 data-i18n="decodeTitle" class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 text-center">লিংক ডিকোড করুন</h3>
             <label data-i18n="decodeLabel" class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">PlayFocus লিংক পেস্ট করুন</label>
-            <input type="text" id="decoder-input" placeholder="https://play.clickifyshopbd.com/?video=..." class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 mb-4">
+            <input type="text" id="decoder-input" placeholder="Paste your encoded URL here..." class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 mb-4">
             
-            <div id="decode-result-box" class="hidden">
+            <div id="decode-result-box" class="mt-4">
                 <p data-i18n="decodeOriginal" class="text-xs text-emerald-500 font-semibold mb-1">অরিজিনাল ভিডিও লিংক:</p>
                 <div class="flex items-center space-x-2">
-                    <input type="text" id="decoded-link" readonly class="w-full p-2 text-sm rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+                    <input type="text" id="decoded-link" readonly placeholder="Original link will appear here..." class="w-full p-2 text-sm rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300">
                     <button id="btn-decode-copy" class="bg-emerald-500 hover:bg-emerald-600 text-white dark:text-gray-900 px-4 py-2 text-sm rounded font-bold transition cursor-pointer whitespace-nowrap">Copy</button>
                 </div>
             </div>
@@ -225,7 +225,6 @@
                 const state = player.getPlayerState();
                 document.getElementById('btn-play-pause').innerText = state == YT.PlayerState.PLAYING ? "Pause" : "Play";
             }
-            // Update mute state translation
             if(player && videoType === 'yt') {
                 document.getElementById('mute-text').innerText = player.isMuted() ? translations[currentLang].unmute : translations[currentLang].mute;
             }
@@ -237,7 +236,6 @@
             document.documentElement.classList.toggle('dark', currentTheme === 'dark');
         });
 
-        // DECODER LOGIC
         const decoderModal = document.getElementById('decoder-modal');
         document.getElementById('btn-decoder-open').addEventListener('click', () => { decoderModal.classList.remove('hidden'); });
         document.getElementById('btn-decoder-close').addEventListener('click', () => { decoderModal.classList.add('hidden'); });
@@ -245,7 +243,6 @@
         document.getElementById('decoder-input').addEventListener('input', (e) => {
             const url = e.target.value;
             const match = url.match(/[?&]video=([^&]+)/);
-            const resultBox = document.getElementById('decode-result-box');
             const decodedInput = document.getElementById('decoded-link');
             
             if(match) {
@@ -259,18 +256,21 @@
                     }
                     if(originalUrl) {
                         decodedInput.value = originalUrl;
-                        resultBox.classList.remove('hidden');
+                    } else {
+                        decodedInput.value = "";
                     }
-                } catch(err) { resultBox.classList.add('hidden'); }
-            } else { resultBox.classList.add('hidden'); }
+                } catch(err) { decodedInput.value = ""; }
+            } else { decodedInput.value = ""; }
         });
 
         document.getElementById('btn-decode-copy').addEventListener('click', () => {
             const link = document.getElementById('decoded-link').value;
-            navigator.clipboard.writeText(link).then(() => {
-                showToast(translations[currentLang].toastDecode);
-                window.open(link, '_blank');
-            });
+            if(link) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast(translations[currentLang].toastDecode);
+                    window.open(link, '_blank');
+                });
+            }
         });
 
         document.getElementById('wiki-toggle').addEventListener('click', () => {
@@ -345,7 +345,6 @@
             }
         });
 
-        // CHANGED: ?lesson to ?video
         const urlParams = new URLSearchParams(window.location.search);
         const encodedVideoData = urlParams.get('video');
 
@@ -387,7 +386,6 @@
 
             const dataObj = { t: parsed.type, v: parsed.id, s: startInput, e: endInput };
             const encodedData = btoa(JSON.stringify(dataObj));
-            // CHANGED: ?lesson to ?video
             const finalLink = `${window.location.origin}${window.location.pathname}?video=${encodedData}`;
             
             document.getElementById('generated-link').value = finalLink;
@@ -475,7 +473,6 @@
         document.getElementById('video-overlay').addEventListener('click', togglePlayPause);
         document.getElementById('btn-play-pause').addEventListener('click', (e) => { e.stopPropagation(); togglePlayPause(); });
 
-        // VOLUME CONTROL LOGIC
         function updateMuteUI(isMuted) {
             const icon = document.getElementById('mute-icon');
             const txt = document.getElementById('mute-text');
@@ -515,7 +512,7 @@
             }
             resetControlsTimeout();
         });
-        // Prevent click on volume slider from hiding controls or pausing
+        
         volumeSlider.addEventListener('click', (e) => e.stopPropagation());
 
         slider.addEventListener('input', () => { isDragging = true; resetControlsTimeout(); });
