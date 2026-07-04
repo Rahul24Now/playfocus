@@ -30,8 +30,6 @@ PlayFocus হলো একটি আধুনিক, মিনিমালিস
 
 ## 📸 স্ক্রিনশটসমূহ (Screenshots)
 
-*নিচের গ্রিড টেবিলে আপনার প্রজেক্টের স্ক্রিনশটগুলোর লিংক বসিয়ে নিন:*
-
 | 📱 হোম স্ক্রিন (Home UI) | 🎯 প্লেয়ার ইন্টারফেস (Player View) |
 |---|---|
 | ![Home UI](images/screenshot1.png) | ![Player View](images/screenshot2.png) |
@@ -101,8 +99,6 @@ Often, we want to share a specific portion of a video for educational, professio
 ---
 
 ## 📸 Screenshots
-
-*Replace the image placeholders in the table below with your repository screenshot paths:*
 
 | 📱 Home UI | 🎯 Player View |
 |---|---|
