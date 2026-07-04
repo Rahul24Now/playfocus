@@ -35,8 +35,8 @@ PlayFocus হলো একটি আধুনিক, মিনিমালিস
 | 📱 হোম স্ক্রিন (Home UI) | 🎯 প্লেয়ার ইন্টারফেস (Player View) |
 |---|---|
 | ![Home UI](images/screenshot1.png) | ![Player View](images/screenshot2.png) |
-| **🔍 লিংক ডিকোর্ডার (Link Decoder)** | **🎬 টিকটক ফুলস্ক্রিন (TikTok View)** |
-| ![Decoder UI](images/screenshot3.png) | ![TikTok View](images/screenshot4.png) |
+| **🔍 লিংক ডিকোর্ডার (Link Decoder)** | **🎬 গুগল ড্রাইভ ভিডিও (Video View)** |
+| ![Decoder UI](images/screenshot3.png) | ![Google Drive Video](images/screenshot4.png) |
 
 ---
 
@@ -107,8 +107,8 @@ Often, we want to share a specific portion of a video for educational, professio
 | 📱 Home UI | 🎯 Player View |
 |---|---|
 | ![Home UI](images/screenshot1.png) | ![Player View](images/screenshot2.png) |
-| **🔍 Link Decoder** | **🎬 TikTok Fullscreen** |
-| ![Decoder UI](images/screenshot3.png) | ![TikTok View](images/screenshot4.png) |
+| **🔍 Link Decoder** | **🎬 Google Drive Video Fullscreen** |
+| ![Decoder UI](images/screenshot3.png) | ![Video View](images/screenshot4.png) |
 
 ---
 
