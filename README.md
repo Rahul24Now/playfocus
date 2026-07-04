@@ -35,7 +35,7 @@ PlayFocus হলো একটি আধুনিক, মিনিমালিস
 | 📱 হোম স্ক্রিন (Home UI) | 🎯 প্লেয়ার ইন্টারফেস (Player View) |
 |---|---|
 | ![Home UI](images/screenshot1.png) | ![Player View](images/screenshot2.png) |
-| **🔍 লিংক ডিকোর্ডার (Link Decoder)** | **🎬 গুগল ড্রাইভ ভিডিও (Video View)** |
+| **🔍 লিংক ডিকোর্ডার (Link Decoder)** | **🎬 গুগল ড্রাইভ ভিডিও (Full screen)** |
 | ![Decoder UI](images/screenshot3.png) | ![Google Drive Video](images/screenshot4.png) |
 
 ---
