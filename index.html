@@ -302,9 +302,7 @@
             else { document.exitFullscreen(); }
         });
 
-        // Updated parse URL function to detect Google Drive
         function parseVideoUrl(url) {
-            // Google Drive Regex
             const gdMatch = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]+)/);
             if (gdMatch) { return { type: 'gd', id: gdMatch[1] }; }
             
@@ -328,7 +326,6 @@
             const parsed = parseVideoUrl(url);
 
             if (parsed && (parsed.type === 'tt' || parsed.type === 'gd')) {
-                // Disable time controls for TikTok and GD
                 timeGroup.classList.add('opacity-40', 'pointer-events-none');
                 previewSection.classList.add('hidden');
                 if(previewPlayer && previewPlayer.stopVideo) previewPlayer.stopVideo();
@@ -391,13 +388,22 @@
                     iframeContainer.classList.remove('hidden');
                     
                     if (videoType === 'tt') {
-                        // Apply md:scale-125 so desktop views match your 125% zoom preference to reduce white margins
-                        iframeContainer.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${videoId}?autoplay=1" class="w-full h-full border-0 transform md:scale-125 origin-center" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`;
+                        // NEW LOGIC FOR TIKTOK: Strict 9:16 Aspect Ratio based on Viewport Height
+                        // This entirely removes the bottom white gaps by ensuring the iframe simulates a perfect phone screen
+                        iframeContainer.innerHTML = `
+                            <div class="flex items-center justify-center w-full h-full bg-black overflow-hidden">
+                                <div style="height: 100vh; width: calc(100vh * (9/16)); max-width: 100vw; position: relative;">
+                                    <iframe src="https://www.tiktok.com/embed/v2/${videoId}?autoplay=1" 
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; transform: scale(1.02); transform-origin: center;" 
+                                        allow="autoplay; fullscreen; encrypted-media" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        `;
                         document.getElementById('btn-fullscreen').classList.add('hidden');
                     } else if (videoType === 'gd') {
-                        // Standard iframe for Google Drive Preview
                         iframeContainer.innerHTML = `<iframe src="https://drive.google.com/file/d/${videoId}/preview" class="w-full h-full border-0" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`;
-                        // Drive has its own full-screen tools, so we hide our custom one
                         document.getElementById('btn-fullscreen').classList.add('hidden');
                     }
                 } else {
